@@ -1,0 +1,44 @@
+                        /****************************\
+                        |**        S.I.W.O.        **|
+                        \****************************/
+
+===============================================================================
+===============================================================================
+
+   SIWO is a public, personal project that focuses on the creation of an
+
+   Instruction Set Architecture ( ISA ) along with an accompanying parser and
+
+   compiler in order to execute high-level programs. This project aims to
+
+   document all design decisions, pertaining to limitations and optimizations
+
+   found at the hardware and language levels. Most notably, this project will
+
+   attempt to start from a single-cycle processor and eventually implement
+
+   a pipeline design, where further optimizations will be added in order to
+
+   improve the processor's efficiency. All changes will be recorded in both
+
+   this file listed under the change log segment and to the appropriate
+   
+   sub-project, along with design decisions if any are made.
+
+
+/****************\
+|**  FEATURES  **|
+\****************/  ===========================================================
+===============================================================================
+
+
+/************************\
+|**  DESIGN DECISIONS  **|
+\************************/  ===================================================
+===============================================================================
+
+
+/******************\
+|**  CHANGE LOG  **|
+\******************/  =========================================================
+===============================================================================
