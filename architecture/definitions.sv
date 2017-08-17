@@ -6,6 +6,21 @@ package definitions;
   localparam FLAG_WIDTH = 3;
   localparam FUNC_WIDTH = 5;
 
+  /* constants related to positions for instruction format */
+  localparam INSN_FLAG_S       = INSN_WIDTH - 1;
+  localparam INSN_FLAG_E       = INSN_FLAG_S - FLAG_WIDTH + 1;
+  localparam INSN_SET_REG_S    = INSN_WIDTH - 2;
+  localparam INSN_SET_REG_E    = INSN_SET_REG_S - REG_WIDTH + 1;
+  localparam INSN_SET_IMMD     = INSN_WIDTH - 6;
+  localparam INSN_BRANCH_BIT   = INSN_WIDTH - 3;
+  localparam INSN_RELATIVE_BIT = INSN_WIDTH - 4;
+  localparam INSN_BRANCH_IMMD  = INSN_WIDTH - 5;
+  localparam INSN_REG_A_S      = INSN_WIDTH - 4;
+  localparam INSN_REG_A_E      = INSN_OP_REG_A_S - REG_WIDTH + 1;
+  localparam INSN_REG_B_S      = INSN_WIDTH - 8;
+  localparam INSN_REG_B_E      = INSN_OP_REG_B_S - REG_WIDTH + 1;
+  localparam INSN_OP_FUNC      = INSN_WIDTH - 12;
+
   /* significant addresses */
   const logic [DATA_WIDTH - 1:0] START_ADDRESS = 16'h0;
 
@@ -30,6 +45,8 @@ package definitions;
   const logic [FUNC_WIDTH - 1:0] FUNC_EQL = 5'b01100;
   const logic [FUNC_WIDTH - 1:0] FUNC_GRT = 5'b01101;
   const logic [FUNC_WIDTH - 1:0] FUNC_ABS = 5'b01110;
+  const logic [FUNC_WIDTH - 1:0] FUNC_LD  = 5'b01111;
+  const logic [FUNC_WIDTH - 1:0] FUNC_SV  = 5'b10000;
 
   /* reserved instructions */
   const logic [INSN_WIDTH - 1:0] INSN_NOP = 16'h1;
