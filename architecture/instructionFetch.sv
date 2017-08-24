@@ -3,21 +3,21 @@ import definitions::*;
 
 module instructionFetch (
   /* update the program counter per positive clock edge */
-  input                     _CLK,
+  input                           _CLK,
   /* flag determines if running */
-  input                     _run,
+  input                           _run,
   /* flag determines resetting address */
-  input                     _reset,
+  input                           _reset,
   /* flag determines if halting */
-  input                     _halt,
+  input                           _halt,
   /* flag determines if branching or jumping */
-  input                     _branchJump,
+  input                           _branchJump,
   /* flag determines if the branching or jumping is relative */
-  input                     _relative,
+  input                           _relative,
   /* address that will be relatively or absolutely set by branch or jump */
-  input  [DATA_WIDTH - 1:0] _destBranchJump,
+  input        [DATA_WIDTH - 1:0] _destBranchJump,
   /* instruction read from the instruction ROM */
-  output [INSN_WIDTH - 1:0] instruction
+  output logic [INSN_WIDTH - 1:0] instruction
   );
 
   /* currenet program counter */

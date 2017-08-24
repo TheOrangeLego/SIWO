@@ -3,17 +3,17 @@ import definitions::*;
 
 module dataMemory (
   /* write on positive clock edge */
-  input                     _CLK,
+  input                           _CLK,
   /* read signal */
-  input                     _read,
+  input                           _read,
   /* write signal */
-  input                     _write,
+  input                           _write,
   /* address where input will be written at */
-  input  [DATA_WIDTH - 1:0] _address,
+  input        [DATA_WIDTH - 1:0] _address,
   /* value to be written into data memory */
-  input  [DATA_WIDTH - 1:0] _valueIn,
+  input        [DATA_WIDTH - 1:0] _valueIn,
   /* value read from data memory */
-  output [DATA_WIDTH - 1:0] valueOut
+  output logic [DATA_WIDTH - 1:0] valueOut
   );
   
   /* stores all data memory */

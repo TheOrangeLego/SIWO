@@ -1,0 +1,84 @@
+C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/instructionFetch.sv {0 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/instructionFetch.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:38 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/instructionFetch.sv 
+-- Compiling package instructionFetch_sv_unit
+-- Importing package definitions
+-- Compiling module instructionFetch
+** Error: C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/instructionFetch.sv(37): (vlog-2110) Illegal reference to net "instruction".
+End time: 20:36:38 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 1, Warnings: 0
+
+} {8.0 9.0} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/arithmeticLogicUnit.sv {1 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/arithmeticLogicUnit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:36 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/arithmeticLogicUnit.sv 
+-- Compiling package arithmeticLogicUnit_sv_unit
+-- Importing package definitions
+-- Compiling module arithmeticLogicUnit
+
+Top level modules:
+	arithmeticLogicUnit
+End time: 20:36:36 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/definitions.sv {1 {vlog -work work -sv -stats=none C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/definitions.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+-- Compiling package definitions
+
+Top level modules:
+	--none--
+
+} {} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/arithmeticLogicUnit_tb.sv {0 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/arithmeticLogicUnit_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:38 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/arithmeticLogicUnit_tb.sv 
+** Error: (vlog-13069) C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/arithmeticLogicUnit_tb.sv(26): near "EOF": syntax error, unexpected end of source code.
+End time: 20:36:38 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 1, Warnings: 0
+
+} {5.0 6.0} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/controlUnit.sv {1 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/controlUnit.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:37 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/controlUnit.sv 
+-- Compiling package controlUnit_sv_unit
+-- Importing package definitions
+-- Compiling module controlUnit
+
+Top level modules:
+	controlUnit
+End time: 20:36:37 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/registerFile.sv {1 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/registerFile.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:36 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/registerFile.sv 
+-- Compiling package registerFile_sv_unit
+-- Importing package definitions
+-- Compiling module registerFile
+
+Top level modules:
+	registerFile
+End time: 20:36:36 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 0, Warnings: 0
+
+} {} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv {0 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:38 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv 
+** Error: C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv(8): (vlog-2730) Undefined variable: 'RED_WIDTH'.
+** Error: (vlog-13069) C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv(11): near "=": syntax error, unexpected '=', expecting ++ or --.
+** Error: (vlog-13069) C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/registerFile_tb.sv(74): near "EOF": syntax error, unexpected end of source code.
+End time: 20:36:38 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 3, Warnings: 0
+
+} {5.0 8.0} {}} C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/controlUnit_tb.sv {0 {vlog -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/controlUnit_tb.sv
+Model Technology ModelSim - Intel FPGA Edition vlog 10.5c Compiler 2017.01 Jan 23 2017
+Start time: 20:36:38 on Aug 23,2017
+vlog -reportprogress 300 -work work -sv C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/controlUnit_tb.sv 
+** Error: (vlog-13069) C:/Users/JoseGZ-Alpha/Desktop/SIWO/architecture/ModelSim/testbenches/controlUnit_tb.sv(48): near "EOF": syntax error, unexpected end of source code.
+End time: 20:36:38 on Aug 23,2017, Elapsed time: 0:00:00
+Errors: 1, Warnings: 0
+
+} {5.0 6.0} {}}
