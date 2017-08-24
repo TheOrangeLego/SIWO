@@ -29,10 +29,10 @@ module arithmeticLogicUnit (
       FUNC_SET : result = _valA;
       FUNC_ADD : result = _valA + _valB;
       FUNC_SUB : result = _valA - _valB;
-      FUNC_ULS : result = { ( _valA << _valB ), _valB{0} };
-      FUNC_URS : result = { _valB{0}, ( _valA >> _valB ) };
-      FUNC_SLS : result = { ( _valA << _valB ), _valB{ _valA[0] } };
-      FUNC_SRS : result = { _valB{ _valA[DATA_WIDTH - 1] }, ( _valA >> _valB ) };
+      FUNC_ULS : result = _valA << _valB;
+      FUNC_URS : result = _valA >> _valB;
+      FUNC_SLS : result = _valA <<< _valB;
+      FUNC_SRS : result = _valA >>> _valB;
       FUNC_AND : result = _valA & _valB;
       FUNC_OR  : result = _valA | _valB;
       FUNC_XOR : result = _valA ^ _valB;
@@ -40,7 +40,7 @@ module arithmeticLogicUnit (
       FUNC_LSS : compareBit = ( $signed( _valA ) < $signed( _valB ) )  ? 1 : 0;
       FUNC_EQL : compareBit = ( $signed( _valA ) == $signed( _valB ) ) ? 1 : 0;
       FUNC_GRT : compareBit = ( $signed( _valA ) > $signed( _valB ) )  ? 1 : 0;
-      FUNC_ABS : result = ( _valA[DATA_WIDTH - 1] == 1 ) ? -_valA : _valA
+      FUNC_ABS : result = ( _valA[DATA_WIDTH - 1] == 1 ) ? -_valA : _valA;
     endcase
     
     /* determine if overflow when adding */

@@ -16,9 +16,9 @@ package definitions;
   localparam INSN_RELATIVE_BIT = INSN_WIDTH - 4;
   localparam INSN_BRANCH_IMMD  = INSN_WIDTH - 5;
   localparam INSN_REG_A_S      = INSN_WIDTH - 4;
-  localparam INSN_REG_A_E      = INSN_OP_REG_A_S - REG_WIDTH + 1;
+  localparam INSN_REG_A_E      = INSN_REG_A_S - REG_WIDTH + 1;
   localparam INSN_REG_B_S      = INSN_WIDTH - 8;
-  localparam INSN_REG_B_E      = INSN_OP_REG_B_S - REG_WIDTH + 1;
+  localparam INSN_REG_B_E      = INSN_REG_B_S - REG_WIDTH + 1;
   localparam INSN_OP_FUNC      = INSN_WIDTH - 12;
 
   /* significant addresses */

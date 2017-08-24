@@ -54,8 +54,8 @@ module controlUnit (
     funcCode       = 0;
     overflowWrite  = 0;
     compareWrite   = 0;
-    readMem        = 0;
-    writeMem       = 0;
+    memoryRead     = 0;
+    memoryWrite    = 0;
     muxMA          = 0;
 
     case ( _instruction[INSN_WIDTH - 1:INSN_WIDTH - FLAG_WIDTH] )
@@ -68,7 +68,7 @@ module controlUnit (
 	  /* choose immediate value */
 	  muxRI          = 1;
 	  /* set the immediate value */
-          immediateValue = _instruction[INSN_SET_IMMD:];
+          immediateValue = _instruction[INSN_SET_IMMD:0];
 	  /* ALU function code */
           funcCode       = FUNC_SET;
 	  /* choose result from ALU */
@@ -84,12 +84,12 @@ module controlUnit (
 	  /* set relative bit */
 	  relative = _instruction[INSN_RELATIVE_BIT];
 	  /* set destination address */
-	  destBranchJump = _instruction[INSN_BRANCH_IMMD:];
+	  destBranchJump = _instruction[INSN_BRANCH_IMMD:0];
         end
       /* for operation instructions */
       FLAG_OPERATION : begin
           /* choose depending on function code */
-          case ( _instruction[INSN_OP_FUNC:] )
+          case ( _instruction[INSN_OP_FUNC:0] )
 	    /* comparison functions only need to write comparison bit */
 	    FUNC_LSS : compareWrite = 1;
 	    FUNC_EQL : compareWrite = 1;
