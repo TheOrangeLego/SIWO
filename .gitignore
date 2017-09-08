@@ -9,8 +9,8 @@
 *.jpg
 *.html
 *.bsf
-wfl*
-*.wfl
+wlf*
+*.wlf
 *.vstf
 *.ucdb
 cov*/
