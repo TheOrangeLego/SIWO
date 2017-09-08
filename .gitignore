@@ -1,0 +1,19 @@
+# ignore ModelSim related files - credit to github@sjaeckel
+[_@]*
+*.mti
+*.dat
+*.dbs
+*.psm
+*.bak
+*.cmp
+*.jpg
+*.html
+*.bsf
+wfl*
+*.wfl
+*.vstf
+*.ucdb
+cov*/
+transcript*
+sc_dpiheader.h
+vsim.dbg
