@@ -40,10 +40,10 @@ module instructionFetch (
     if ( _run )
       programCounter <= programCounter + 1;
     /* if signaled to reset, set program counter to default address */
-    else if ( _reset )
+    if ( _reset )
       programCounter <= START_ADDRESS;
     /* if signaled to branch or jump */
-    else if ( _branchJump )
+    if ( _branchJump )
     begin
       /* if the branch or jump is relative, signed addition of program */
       /* counter with the destination address value, else set absolutely */
@@ -52,9 +52,6 @@ module instructionFetch (
       else
         programCounter <= _destBranchJump;
     end
-    /* else keep program counter the same */
-    else
-      programCounter <= programCounter;
   end
 endmodule
 

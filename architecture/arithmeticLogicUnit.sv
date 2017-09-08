@@ -31,24 +31,32 @@ module arithmeticLogicUnit (
       FUNC_SUB : result = _valA - _valB;
       FUNC_ULS : result = _valA << _valB;
       FUNC_URS : result = _valA >> _valB;
-      FUNC_SLS : result = _valA <<< _valB;
-      FUNC_SRS : result = _valA >>> _valB;
+      FUNC_SLS : result = $signed( _valA ) <<< _valB;
+      FUNC_SRS : result = $signed( _valA ) >>> _valB;
       FUNC_AND : result = _valA & _valB;
       FUNC_OR  : result = _valA | _valB;
       FUNC_XOR : result = _valA ^ _valB;
       FUNC_NOT : result = !_valA;
-      FUNC_LSS : compareBit = ( $signed( _valA ) < $signed( _valB ) )  ? 1 : 0;
-      FUNC_EQL : compareBit = ( $signed( _valA ) == $signed( _valB ) ) ? 1 : 0;
-      FUNC_GRT : compareBit = ( $signed( _valA ) > $signed( _valB ) )  ? 1 : 0;
+      FUNC_LSS : result = ( $signed( _valA ) < $signed( _valB ) )  ? 1 : 0;
+      FUNC_EQL : result = ( $signed( _valA ) == $signed( _valB ) ) ? 1 : 0;
+      FUNC_GRT : result = ( $signed( _valA ) > $signed( _valB ) )  ? 1 : 0;
       FUNC_ABS : result = ( _valA[DATA_WIDTH - 1] == 1 ) ? -_valA : _valA;
     endcase
     
     /* determine if overflow when adding */
-    if ( _funcCode == FUNC_ADD && $signed( result ) < $signed( _valA ) )
+    if ( _funcCode == FUNC_ADD && (
+      ( $signed( result ) < 0 && $signed( _valA ) > 0 && $signed( _valB ) > 0 ) ||
+      ( $signed( result ) > 0 && $signed( _valA ) < 0 && $signed( _valB ) < 0 ) ) )
       overflow = 1;
+
     /* determine if overflow when subtracting */
-    if ( _funcCode == FUNC_SUB && $signed( result ) > $signed( _valA ) )
+    if ( _funcCode == FUNC_SUB && (
+      ( $signed( result ) < 0 && $signed( _valA ) > 0 && $signed( _valB ) < 0 ) ||
+      ( $signed( result ) > 0 && $signed( _valA ) < 0 && $signed( _valB ) > 0 ) ) )
       overflow = 1;
+
+    if ( _funcCode >= FUNC_NOT && _funcCode <= FUNC_GRT )
+      compareBit = result[0];
   end
 
 endmodule
