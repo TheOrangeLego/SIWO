@@ -1,5 +1,6 @@
 # ignore ModelSim related files - credit to github@sjaeckel
 [_@]*
+*.mpf
 *.mti
 *.dat
 *.dbs
@@ -17,3 +18,4 @@ cov*/
 transcript*
 sc_dpiheader.h
 vsim.dbg
+
