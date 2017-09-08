@@ -23,39 +23,46 @@ registerFile uut (
 
 initial
 begin
+  /* set default input values */
   #00ns
-    _CLK = 0;
+    _CLK = 1;
     _regWrite = 0;
     _regSrcA = 0;
     _regSrcB = 0;
     _regDest = 0;
     _writeVal = 0;
 
+  /* write value into register */
   #10ns
     _regWrite = 1;
     _regDest = 0;
     _writeVal = 10;
 
+  /* write value into another register */
   #10ns
     _regWrite = 1;
     _regDest = 2;
     _writeVal = 7;
 
+  /* change source register */
   #10ns
     _regWrite = 0;
     _regSrcA = 2;
     _regSrcB = 0;
 
+  /* update register value */
   #10ns
     _regSrcB = 5;
     _regDest = 2;
     _writeVal = 11;
 
+  /* update register value */
   #10ns
     _regWrite = 1;
     _regDest = 2;
     _writeVal = 55;
 
+  /* test register writing without write signal */
   #10ns
     _regWrite = 0;
     _writeVal = 14;
@@ -67,9 +74,7 @@ end
 always
 begin
   #5ns
-    _CLK = 1;
-  #5ns
-    _CLK = 0;
+    _CLK = ~_CLK;
 end
 
 endmodule
