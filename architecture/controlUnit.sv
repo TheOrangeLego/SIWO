@@ -26,10 +26,10 @@ module controlUnit (
   output logic [DATA_WIDTH - 1:0] immediateValue,
   /* function code for ALU */
   output logic [FUNC_WIDTH - 1:0] funcCode,
-  /* write signal for overflow D flip flop */
-  output logic                    overflowWrite,
-  /* wrote signal for compare D flip flop */
-  output logic                    compareWrite,
+  
+  output logic                    overflow,
+  
+  output logic                    compare,
   /* read signal for data memory */
   output logic                    memoryRead,
   /* write signal for data memory */
@@ -52,8 +52,8 @@ module controlUnit (
     muxRI          = 0;
     immediateValue = 0;
     funcCode       = 0;
-    overflowWrite  = 0;
-    compareWrite   = 0;
+    overflow       = 0;
+    compare        = 0;
     memoryRead     = 0;
     memoryWrite    = 0;
     muxMA          = 0;
@@ -91,9 +91,9 @@ module controlUnit (
           /* choose depending on function code */
           case ( _instruction[INSN_OP_FUNC:0] )
 	    /* comparison functions only need to write comparison bit */
-	    FUNC_LSS : compareWrite = 1;
-	    FUNC_EQL : compareWrite = 1;
-	    FUNC_GRT : compareWrite = 1;
+	    FUNC_LSS : compare = 1;
+	    FUNC_EQL : compare = 1;
+	    FUNC_GRT : compare = 1;
 	    /* on load, write to register file and read from data memory */
 	    FUNC_LD  : begin
 		regWrite = 1;
@@ -105,6 +105,7 @@ module controlUnit (
 	    /* and choose output of ALU */
 	    default  : begin
 	        regWrite = 1;
+	        overflow = 1;
 	        muxMA = 1;
 	      end
 	  endcase
