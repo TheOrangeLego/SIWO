@@ -1,10 +1,10 @@
 // memory data file (do not edit the following line - required for mem load use)
 // instance=/SIWO_tb/uut/dataMemory_module/data
 // format=bin addressradix=h dataradix=b version=1.0 wordsperline=1 noaddress
+0000000000000011
+0000000000001010
+1111111111111110
 0000000000000000
-0000000000000000
-0000000000000000
-0000000000000000
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
@@ -65530,7 +65530,7 @@ xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
-xxxxxxxxxxxxxxxx
+0000000000000010
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
 xxxxxxxxxxxxxxxx
