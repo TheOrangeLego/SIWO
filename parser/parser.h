@@ -5,6 +5,8 @@
 #include <bitset>
 #include <cstdlib>
 
+const char* OUTPUT_FILE = "instructionROM.b";
+
 /* regular messages */
 const char* MSG_HELP     = "\n  help message\n";
 const char* MSG_GET_HELP = "\n  for help run the program with the parameter \'-h\', such as--\n\t ./parse -h\n";
