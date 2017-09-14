@@ -12,6 +12,7 @@ package definitions;
   localparam INSN_SET_REG_S    = INSN_WIDTH - 2;
   localparam INSN_SET_REG_E    = INSN_SET_REG_S - REG_WIDTH + 1;
   localparam INSN_SET_IMMD     = INSN_WIDTH - 6;
+  localparam INSN_SET_PAD      = INSN_WIDTH - INSN_SET_IMMD;
   localparam INSN_BRANCH_BIT   = INSN_WIDTH - 3;
   localparam INSN_RELATIVE_BIT = INSN_WIDTH - 4;
   localparam INSN_BRANCH_IMMD  = INSN_WIDTH - 5;
