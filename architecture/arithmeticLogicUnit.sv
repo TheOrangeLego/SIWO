@@ -41,6 +41,7 @@ module arithmeticLogicUnit (
       FUNC_EQL : result = ( $signed( _valA ) == $signed( _valB ) ) ? 1 : 0;
       FUNC_GRT : result = ( $signed( _valA ) > $signed( _valB ) )  ? 1 : 0;
       FUNC_ABS : result = ( _valA[DATA_WIDTH - 1] == 1 ) ? -_valA : _valA;
+      default  : result = 0;
     endcase
     
     /* determine if overflow when adding */

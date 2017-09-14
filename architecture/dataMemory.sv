@@ -21,7 +21,7 @@ module dataMemory (
 
   /* load the entire data memory */
   initial
-    $readmemh( "data_memory.txt", data);
+    $readmemb( "data_memory.txt", data);
 
   /* if read signaled, read at specified address */
   always_comb
@@ -35,7 +35,7 @@ module dataMemory (
     if ( _write )
     begin
       data[_address] = _valueIn;
-      $writememh( "data_memory.txt", data );
+      $writememb( "data_memory.txt", data );
     end
 
 endmodule
