@@ -5,6 +5,12 @@ module SIWO_tb;
   bit  _start;
   wire halt;
 
+SIWO uut (
+  ._CLK   ( _CLK ),
+  ._start ( _start ),
+  .halt   ( halt )
+  );
+
 initial
 begin
   #00ns
@@ -17,7 +23,8 @@ end
 
 always
 begin
-  _CLK = !_CLK;
+  #5ns
+  _CLK = ~_CLK;
 
   if ( halt )
     $stop;

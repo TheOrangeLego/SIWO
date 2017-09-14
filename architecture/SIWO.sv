@@ -9,8 +9,6 @@ module SIWO (
   logic [INSN_WIDTH - 1:0] insnCount = 'b0;
 
   /* miscellaneous wires */
-  wire                    run = 0;
-  wire                    reset = 1;
   wire                    branchJump;
   wire [DATA_WIDTH - 1:0] writeValue;
   wire [DATA_WIDTH - 1:0] valueMUXA;
@@ -47,10 +45,8 @@ module SIWO (
 
   /* wire outputs from data memory module */
   wire [DATA_WIDTH - 1:0] valueData;
-  
+
   /* miscellaneous wire assignments */
-  assign run        = ( _start == 1 ) ? 1 : 0;
-  assign reset      = 1 - run;
   assign branchJump = ( branch && ( ( overflow && overflowBit ) ||
 		      ( compare && compareBit ) ) ) || jump;
   assign valueMUXA  = ( muxRI == 0 ) ? valueRegA : immediateValue;
@@ -64,8 +60,8 @@ module SIWO (
 
   instructionFetch instructionFetch_module (
     ._CLK            ( _CLK ),
-    ._run            ( run ),
-    ._reset          ( reset ),
+    ._run            ( _start ),
+    ._reset          ( ~_start ),
     ._halt           ( halt ),
     ._branchJump     ( branchJump ),
     ._relative       ( relative ),
@@ -86,8 +82,8 @@ module SIWO (
     .muxRI          ( muxRI ),
     .immediateValue ( immediateValue ),
     .funcCode       ( funcCode ),
-    .overflowWrite  ( overflow ),
-    .compareWrite   ( compare ),
+    .overflow       ( overflow ),
+    .compare        ( compare ),
     .memoryRead     ( memoryRead ),
     .memoryWrite    ( memoryWrite ),
     .muxMA          ( muxMA )
