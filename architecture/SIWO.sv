@@ -113,7 +113,7 @@ module SIWO (
     ._CLK     ( _CLK ),
     ._read    ( memoryRead ),
     ._write   ( memoryWrite ),
-    ._address ( valueMUXB ),
+    ._address ( valueMUXA ),
     ._valueIn ( result ),
     .valueOut ( valueData )
     );

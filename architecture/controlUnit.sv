@@ -58,9 +58,10 @@ module controlUnit (
     memoryWrite    = 0;
     muxMA          = 0;
 
-    case ( _instruction[INSN_WIDTH - 1:INSN_WIDTH - FLAG_WIDTH] )
+    casex ( _instruction[INSN_WIDTH - 1:INSN_WIDTH - FLAG_WIDTH] )
       /* for set instructions */
-      FLAG_SET : begin
+      FLAG_SET :
+        begin
           /* set the appropriate destination register */
           regA           = _instruction[INSN_SET_REG_S:INSN_SET_REG_E];
 	  /* write the data into the register file */
@@ -68,14 +69,15 @@ module controlUnit (
 	  /* choose immediate value */
 	  muxRI          = 1;
 	  /* set the immediate value */
-          immediateValue = _instruction[INSN_SET_IMMD:0];
+          immediateValue = { { INSN_SET_PAD { _instruction[INSN_SET_IMMD] } }, _instruction[INSN_SET_IMMD:0] };
 	  /* ALU function code */
           funcCode       = FUNC_SET;
 	  /* choose result from ALU */
           muxMA          = 1;
         end
       /* for branch or jump instructions */
-      FLAG_BRANCH_JUMP : begin
+      FLAG_BRANCH_JUMP :
+        begin
           /* mark for branch or jump depending on branch/jump bit */
           if ( _instruction[INSN_BRANCH_BIT] == 0 )
 	    branch = 1;
@@ -87,7 +89,8 @@ module controlUnit (
 	  destBranchJump = _instruction[INSN_BRANCH_IMMD:0];
         end
       /* for operation instructions */
-      FLAG_OPERATION : begin
+      FLAG_OPERATION :
+        begin
           /* choose depending on function code */
           case ( _instruction[INSN_OP_FUNC:0] )
 	    /* comparison functions only need to write comparison bit */
@@ -95,15 +98,21 @@ module controlUnit (
 	    FUNC_EQL : compare = 1;
 	    FUNC_GRT : compare = 1;
 	    /* on load, write to register file and read from data memory */
-	    FUNC_LD  : begin
+	    FUNC_LD  :
+	      begin
 		regWrite = 1;
 		memoryRead = 1;
 	      end
 	    /* on save, write to memory */
-	    FUNC_SV  : memoryWrite = 1;
+	    FUNC_SV  : 
+	      begin
+	        memoryWrite = 1;
+		muxMA = 1;
+	      end
 	    /* for other function codes, write to register file */
 	    /* and choose output of ALU */
-	    default  : begin
+	    default  :
+	      begin
 	        regWrite = 1;
 	        overflow = 1;
 	        muxMA = 1;
@@ -116,7 +125,8 @@ module controlUnit (
 	  /* set ALU function code */
 	  funcCode = _instruction[FUNC_WIDTH - 1:0];
         end
-      default : begin
+      default :
+        begin
           /* if halt instruction issued, send halt signal */
           if ( _instruction == INSN_HLT )
 	    halt = 1;
