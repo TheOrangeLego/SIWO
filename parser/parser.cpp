@@ -11,7 +11,7 @@ int main ( int argc, char* argv[] )
 
   /* open input and output file streams */
   std::ifstream sourceFile( argv[1] );
-  std::ofstream binaryFile( "source.b" );
+  std::ofstream binaryFile( OUTPUT_FILE );
 
   /* if input file fails to open, exit with error message */
   if ( !sourceFile.is_open() )
