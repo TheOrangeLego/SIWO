@@ -1,7 +1,5 @@
-                        /****************************\
-                        |**        S.I.W.O.        **|
-                        \****************************/
 
+                                S.I.W.O.        
 ===============================================================================
 ===============================================================================
 
@@ -26,19 +24,31 @@
    sub-project, along with design decisions if any are made.
 
 
-/****************\
-|**  FEATURES  **|
-\****************/  ===========================================================
+==  FEATURES  =================================================================
 ===============================================================================
 
+  > single cycle architecture with instruction and data bus with of 16 bits
 
-/************************\
-|**  DESIGN DECISIONS  **|
-\************************/  ===================================================
+    and 16 available registers
+
+  > absolute and relative branches and jumps
+
+==  DESIGN DECISIONS  =========================================================
 ===============================================================================
 
+  > branching is broken into two instructions, first the comparison and
+  
+    second the branching destination on the valid comparison. This allows
 
-/******************\
-|**  CHANGE LOG  **|
-\******************/  =========================================================
+    both branching and jumping to reach farther, as 11 bits are used for
+
+    the destination address
+
+==  CHANGE LOG  ===============================================================
 ===============================================================================
+
+  > parser generates any source assembly file passed as the argument to binary
+
+  > single cycle ISA completed, both data memory and instruction ROM use files
+
+    instead of caches
