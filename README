@@ -47,7 +47,11 @@
 ==  CHANGE LOG  ===============================================================
 ===============================================================================
 
-  > parser generates any source assembly file passed as the argument to binary
+  > changed name of file and directory from 'parser' to correct name 
+  
+    'assembler', research is good for you
+
+  > assembler converts provided assembly file into machine code file
 
   > single cycle ISA completed, both data memory and instruction ROM use files
 
