@@ -19,3 +19,6 @@ transcript*
 sc_dpiheader.h
 vsim.dbg
 
+# ignore Ocaml compilation files
+*.cmi
+*.cmo
