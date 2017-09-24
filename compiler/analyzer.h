@@ -33,6 +33,7 @@ class Expression
      *                and contains no left nor right child expression
      */
     Expression( std::string _token, ExpressionType _type );
+
     /*
      * Constructor  - Expression
      *
@@ -49,6 +50,7 @@ class Expression
      */
     Expression( std::string _token, ExpressionType _type, Expression* _left,
                 Expression* _right );
+
     /*
      * Destructor   - Expression
      *
@@ -59,6 +61,7 @@ class Expression
      * Description  - destructor for Expression type objects
      */
     ~Expression();
+
     /*
      * Function     - setLeftExpression
      *
@@ -71,6 +74,7 @@ class Expression
      *                expression
      */
     void setLeftExpression( Expression* _expr );
+
     /*
      * Function     - setRightExpression
      *
@@ -83,6 +87,7 @@ class Expression
      *                expression
      */
     void setRightExpression( Expression* _expr );
+
     /*
      * Function     - getToken
      *
@@ -93,6 +98,7 @@ class Expression
      * Description  - returns the string representation of the token
      */
     const std::string getToken();
+
     /*
      * Function     - getType
      *
@@ -103,6 +109,7 @@ class Expression
      * Description  - returns the type of token
      */
     const ExpressionType getType();
+
     /*
      * Function     - getLeftExpression
      *
@@ -113,6 +120,7 @@ class Expression
      * Description  - return pointer to the left child of expression
      */
     const Expression* getLeftExpression();
+
     /*
      * Function     - getRightExpression
      *
@@ -124,11 +132,46 @@ class Expression
      */
     const Expression* getRightExpression();
 };
+
 /*
+ * Function     - precedence
+ *
+ * Parameters   -
+ *  - std::string - token of operator whose precedence will be checked
+ *
+ * Return Value - precedence value of operator token
+ *
+ * Description  - returns the precedence value of the provided operator token, -1 is
+ *                returned if not a valid operator
+ */
 int precedence( const std::string _token );
 
+/*
+ * Function     - lowerPrecedence
+ *
+ * Parameters   -
+ *  - std::string - token whose precedence will be checked to be lower
+ *  - std::string - token whose precedence will be compare to the first token
+ *
+ * Return Value - true if the first precedence is lower or equal to the second token,
+ *                false otherwise
+ *
+ * Description  - determines if the precedence of the first token is lower or equal to
+ *                the precedence of the second token
+ */
 bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB );
 
-Expression* generateAS( std::list<std::string> _tokens );*/
+/*
+ * Function     - orderTokens
+ *
+ * Parameters   -
+ *  - std::list<std::string> - list of tokens
+ *
+ * Return Value - list of ordered tokens
+ *
+ * Description  - returns the list of provided tokens in order according to
+ *                shutting-yard algorithm
+ */
+const std::list<std::string> orderTokens( std::list<std::string> _tokens );
 
 #endif
