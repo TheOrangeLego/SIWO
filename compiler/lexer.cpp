@@ -62,9 +62,9 @@ bool validOperator( const char* const _string )
     return false;
 
   /* check if it is any defined operator */
-  if ( strcmp( _string, TOKEN_ADD ) || strcmp( _string, TOKEN_SUB ) ||
-       strcmp( _string, TOKEN_MUL ) || strcmp( _string, TOKEN_DIV ) ||
-       strcmp( _string, TOKEN_LPA ) || strcmp( _string, TOKEN_RPA ) )
+  if ( strcmp( _string, TOKEN_ADD ) && strcmp( _string, TOKEN_SUB ) &&
+       strcmp( _string, TOKEN_MUL ) && strcmp( _string, TOKEN_DIV ) &&
+       strcmp( _string, TOKEN_LPA ) && strcmp( _string, TOKEN_RPA ) )
     return false;
   
   /* default is operator */
