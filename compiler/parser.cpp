@@ -1,5 +1,5 @@
-#include "parser.h"
 #include "lexer.h"
+#include "parser.h"
 
 /* Function - streamEmpty */
 bool streamEmpty()
@@ -34,12 +34,12 @@ std::list<std::string> getNextTokens()
   while ( currentLine.length() )
   {
     /* skip any whitespace at the front of the line */
-    if ( currentLine[0] == ' ' || currentLine[0] == '\t' )
+    if ( currentLine[0] == CHAR_SPACE || currentLine[0] == CHAR_TAB )
       currentLine = currentLine.substr( 1 );
     else
     {
       /* find the first space */
-      std::size_t spaceChar = currentLine.find_first_of( " " );
+      std::size_t spaceChar = currentLine.find_first_of( CHAR_SPACE );
       /* extract the first word of the current line */
       std::string currentString = currentLine.substr( 0, spaceChar );
     

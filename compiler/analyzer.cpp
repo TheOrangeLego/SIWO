@@ -1,17 +1,24 @@
-#include "analyzer.h"
+#include <iostream>
+#include <stack>
 #include "lexer.h"
 #include "parser.h"
-#include <iostream>
+#include "analyzer.h"
 
+/* Constructor - Expression */
 Expression::Expression( std::string _token, ExpressionType _type )
 {
+  /* set token string and type according to parameters */
   token = _token;
   type = _type;
+  /* expression has not left and right child, i.e. constant or identifier */
   left = right = NULL;
 }
 
-Expression::Expression( std::string _token, ExpressionType _type, Expression* _left, Expression* _right )
+/* Constructor - Expression */
+Expression::Expression( std::string _token, ExpressionType _type, Expression* _left,
+                        Expression* _right )
 {
+  /* set token string, type, left, and right child expression */
   token = _token;
   type = _type;
   left = _left;
@@ -37,25 +44,25 @@ void Expression::setRightExpression( Expression* _expr )
   right = _expr;
 }
 
-std::string Expression::getToken()
+const std::string Expression::getToken()
 {
   return token;
 }
 
-ExpressionType Expression::getType()
+const ExpressionType Expression::getType()
 {
   return type;
 }
-Expression& Expression::getLeftExpression()
+const Expression* Expression::getLeftExpression()
 {
-  return *left;
+  return left;
 }
 
-Expression& Expression::getRightExpression()
+const Expression* Expression::getRightExpression()
 {
-  return *right;
+  return right;
 }
-
+/*
 int precedence( const std::string _token )
 {
   if ( !_token.compare( std::string( 1, TOKEN_LPA ) ) || !_token.compare( std::string( 1, TOKEN_RPA ) ) )
@@ -145,4 +152,4 @@ Expression* generateAS( std::list<std::string> _tokens )
   std::cout << std::endl;
 
   return NULL;
-}
+}*/

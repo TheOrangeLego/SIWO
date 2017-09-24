@@ -1,10 +1,10 @@
+#ifndef _PARSER
+#define _PARSER
+
 #include <fstream>
 #include <sstream>
 #include <string>
 #include <list>
-
-#ifndef _PARSER
-#define _PARSER
 
 /* stream buffer that holds file content */
 static std::stringstream buffer;

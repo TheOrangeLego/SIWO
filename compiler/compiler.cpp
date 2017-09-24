@@ -1,10 +1,11 @@
 #include <iostream>
 #include "lexer.h"
-#include "parser.h"
-#include "analyzer.h"
+//#include "parser.h"
+//#include "analyzer.h"
 
 int main ( int argc, char* argv[] )
 {
+/*
   std::ifstream inputFile( "input.txt" );
   std::list<std::string> tokens;
 
@@ -18,6 +19,6 @@ int main ( int argc, char* argv[] )
   ( void ) generateAS( tokens );
 
   inputFile.close();
-
+*/
   return 0;
 }

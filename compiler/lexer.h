@@ -2,19 +2,25 @@
 #define _LEXER
 
 /* white space */
-const char TOKEN_SPACE   = ' ';
-const char TOKEN_NEWLINE = '\n';
+const char CHAR_SPACE   = ' ';
+const char CHAR_TAB     = '\t';
+const char CHAR_NEWLINE = '\n';
+
+/* special tokens */
+const char CHAR_HYPHEN  = '-';
+const char CHAR_US      = '_';
+const char CHAR_NUL     = '\0';
 
 /* keywords */
 const char* const KEYWORD_LET = "let";
 
 /* operators */
-const char TOKEN_ADD = '+';
-const char TOKEN_SUB = '-';
-const char TOKEN_MUL = '*';
-const char TOKEN_DIV = '/';
-const char TOKEN_LPA = '(';
-const char TOKEN_RPA = ')';
+const char* const TOKEN_ADD = "+";
+const char* const TOKEN_SUB = "-";
+const char* const TOKEN_MUL = "*";
+const char* const TOKEN_DIV = "/";
+const char* const TOKEN_LPA = "(";
+const char* const TOKEN_RPA = ")";
 
 /* error messages */
 const char* const ERR_BAD_TOKEN = "\n  ERR - invalid token %s\n";
