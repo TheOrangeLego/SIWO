@@ -15,6 +15,7 @@ const char CHAR_NUL     = '\0';
 const char* const KEYWORD_LET = "let";
 
 /* operators */
+const char* const TOKEN_EQL = "=";
 const char* const TOKEN_ADD = "+";
 const char* const TOKEN_SUB = "-";
 const char* const TOKEN_MUL = "*";

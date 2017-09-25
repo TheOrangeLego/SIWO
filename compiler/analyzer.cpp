@@ -92,6 +92,8 @@ int precedence( const std::string _token )
   /* precedence 2 - '+' : '-' */
   else if ( !strcmp( _token.c_str(), TOKEN_ADD ) || !strcmp( _token.c_str(), TOKEN_SUB ) )
     return 2;
+  else if ( !strcmp( _token.c_str(), TOKEN_EQL ) )
+    return 3;
   /* not recognized tokens return -1 */
   else
     return -1;
@@ -206,4 +208,8 @@ const std::list<std::string> orderTokens( std::list<std::string> _tokens )
   std::cout << std::endl;
 
   return orderedTokens;
+}
+
+void generateLetAS( const std::list<std::string> _tokens )
+{
 }

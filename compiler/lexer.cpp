@@ -64,7 +64,8 @@ bool validOperator( const char* const _string )
   /* check if it is any defined operator */
   if ( strcmp( _string, TOKEN_ADD ) && strcmp( _string, TOKEN_SUB ) &&
        strcmp( _string, TOKEN_MUL ) && strcmp( _string, TOKEN_DIV ) &&
-       strcmp( _string, TOKEN_LPA ) && strcmp( _string, TOKEN_RPA ) )
+       strcmp( _string, TOKEN_LPA ) && strcmp( _string, TOKEN_RPA ) &&
+       strcmp( _string, TOKEN_EQL ) )
     return false;
   
   /* default is operator */

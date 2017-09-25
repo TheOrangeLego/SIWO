@@ -174,4 +174,6 @@ bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB );
  */
 const std::list<std::string> orderTokens( std::list<std::string> _tokens );
 
+void generateLetAS( const std::list<std::string> _tokens );
+
 #endif
