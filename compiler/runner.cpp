@@ -10,7 +10,13 @@
 
 int main ( int argc, char* argv[] )
 {
-  std::ifstream input( "input.txt" );
+  if ( argc < 2 )
+  {
+    std::cout << "Missing source file" << std::endl;
+    return 1;
+  }
+
+  std::ifstream input(  argv[1]);
   std::ofstream output( "output.txt" );
 
   std::list<std::string> tokens;
