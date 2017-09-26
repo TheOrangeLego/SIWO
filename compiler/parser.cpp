@@ -83,4 +83,6 @@ bool validTokens( const std::list<std::string> _list )
 	 !validOperator( ( *listIt ).c_str() ) )
       ( void ) printf( ERR_BAD_TOKEN, ( *listIt ).c_str() );
   }
+
+  return true;
 }

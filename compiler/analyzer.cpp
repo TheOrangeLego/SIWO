@@ -200,13 +200,6 @@ std::list<std::string> orderTokens( std::list<std::string> _tokens )
    operators.pop();
   }
 
-  std::cout << "Ordered tokens:";
-
-  for ( std::list<std::string>::const_iterator it = orderedTokens.begin(); it != orderedTokens.end(); it++ )
-    std::cout << " " << *it;
-
-  std::cout << std::endl;
-
   return orderedTokens;
 }
 
@@ -247,13 +240,4 @@ Expression* generateAS( std::list<std::string>& _tokens )
   }
 
   return currentNode;
-}
-
-void printAS( const Expression* _expr )
-{
-  if ( _expr -> getType == Expression::Operator )
-  {
-    if ( _expr -> getLeftExpression() -> getType != Expression::Operator &&
-         _expr -> getRightExpression() -> getType != Expression::Operator )
-  }
 }

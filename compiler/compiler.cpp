@@ -1,27 +1,37 @@
-#include <iostream>
-#include "lexer.h"
-#include "parser.h"
-#include "analyzer.h"
+#include <string.h>
+#include "compiler.h"
 
-int main ( int argc, char* argv[] )
+int findEnv( std::list<std::string> _env, std::string _var )
 {
-  std::ifstream inputFile( "input.txt" );
-  std::list<std::string> tokens;
+  for ( std::list<std::string>::iterator it = _env.begin(); it != _env.end(); it++ )
+    if ( !strcmp( ( *it ).c_str(), _var.c_str() ) )
+      return 0;
 
-  if ( !inputFile.is_open() )
-    return 1;
+  return -1;
+}
 
-  appendStream( inputFile );
-  tokens = getNextTokens();
-  validTokens( tokens );
+std::string insnConstant( std::string _value, int _registerIndex )
+{
+  std::string insn = "set r" + std::to_string( _registerIndex ) + ", " + _value + "\n";
+  return insn;
+}
 
-  tokens = orderTokens( tokens );
-  Expression* root = generateAS( tokens );
-  printAS( root );
+std::string compile( Expression* _expr, std::list<std::string> _env, int _registerIndex,
+                     std::list<int> _errorList )
+{
+  std::string instruction = "DEFAULT";
 
-  std::cout << std::endl;
+  if ( _expr -> getType() == Expression::Constant )
+    instruction = insnConstant( _expr -> getToken(), _registerIndex );
 
-  inputFile.close();
+  if ( _expr -> getType() == Expression::Identifier )
+  {
+    if ( findEnv( _env, _expr -> getToken() ) == -1 )
+      return "ERROR";
 
-  return 0;
+    return "SOMETHING ELSE";
+  }
+
+  return instruction;
+  
 }
