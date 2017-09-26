@@ -4,22 +4,13 @@
 #include <string>
 #include <list>
 
-/* types of expressions available */
-enum ExpressionType { Constant, Identifier, Operator };
-
 /* Class - Expression */
 class Expression
 {
-  /* string representation of token expression */
-  std::string token;
-  /* type of expression */
-  ExpressionType type;
-  /* left expression for binary operators */
-  Expression* left;
-  /* right expression for binary operators */
-  Expression* right;
-
   public:
+    /* types of expressions available */
+    enum ExpressionType { Constant, Identifier, Operator };
+
     /*
      * Constructor  - Expression
      *
@@ -97,7 +88,7 @@ class Expression
      *
      * Description  - returns the string representation of the token
      */
-    const std::string getToken();
+    std::string getToken() const;
 
     /*
      * Function     - getType
@@ -108,7 +99,7 @@ class Expression
      *
      * Description  - returns the type of token
      */
-    const ExpressionType getType();
+    ExpressionType getType() const;
 
     /*
      * Function     - getLeftExpression
@@ -119,7 +110,7 @@ class Expression
      *
      * Description  - return pointer to the left child of expression
      */
-    const Expression* getLeftExpression();
+    Expression* getLeftExpression() const;
 
     /*
      * Function     - getRightExpression
@@ -130,7 +121,17 @@ class Expression
      *
      * Description  - return pointer to the right child of expression
      */
-    const Expression* getRightExpression();
+    Expression* getRightExpression() const;
+
+  private:
+    /* string representation of token expression */
+    std::string token;
+    /* type of expression */
+    ExpressionType type;
+    /* left expression for binary operators */
+    Expression* left;
+    /* right expression for binary operators */
+    Expression* right;
 };
 
 /*
@@ -172,8 +173,10 @@ bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB );
  * Description  - returns the list of provided tokens in order according to
  *                shutting-yard algorithm
  */
-const std::list<std::string> orderTokens( std::list<std::string> _tokens );
+std::list<std::string> orderTokens( std::list<std::string> _tokens );
 
-void generateLetAS( const std::list<std::string> _tokens );
+Expression* generateAS( std::list<std::string>& _tokens );
+
+void printAS( const Expression* _expr );
 
 #endif

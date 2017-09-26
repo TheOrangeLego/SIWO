@@ -6,7 +6,7 @@
 #include "analyzer.h"
 
 /* Constructor - Expression */
-Expression::Expression( std::string _token, ExpressionType _type )
+Expression::Expression( std::string _token, Expression::ExpressionType _type )
 {
   /* set token string and type according to parameters */
   token = _token;
@@ -16,8 +16,8 @@ Expression::Expression( std::string _token, ExpressionType _type )
 }
 
 /* Constructor - Expression */
-Expression::Expression( std::string _token, ExpressionType _type, Expression* _left,
-                        Expression* _right )
+Expression::Expression( std::string _token, Expression::ExpressionType _type, 
+                        Expression* _left, Expression* _right )
 {
   /* set token string, type, left, and right child expression */
   token = _token;
@@ -53,28 +53,28 @@ void Expression::setRightExpression( Expression* _expr )
 }
 
 /* Function - getToken */
-const std::string Expression::getToken()
+std::string Expression::getToken() const
 {
   /* return token string representation */
   return token;
 }
 
 /* Function - getType */
-const ExpressionType Expression::getType()
+Expression::ExpressionType Expression::getType() const
 {
   /* return type of token */
   return type;
 }
 
 /* Function - getLeftExpression */
-const Expression* Expression::getLeftExpression()
+Expression* Expression::getLeftExpression() const
 {
   /* return pointer to the left child */
   return left;
 }
 
 /* Function - getRightExpression */
-const Expression* Expression::getRightExpression()
+Expression* Expression::getRightExpression() const
 {
   /* return pointer to the right child */
   return right;
@@ -111,7 +111,7 @@ bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB )
 }
 
 /* Function - orderTokens */
-const std::list<std::string> orderTokens( std::list<std::string> _tokens )
+std::list<std::string> orderTokens( std::list<std::string> _tokens )
 {
   /* contain all tokens in order */
   std::list<std::string> orderedTokens;
@@ -210,6 +210,50 @@ const std::list<std::string> orderTokens( std::list<std::string> _tokens )
   return orderedTokens;
 }
 
-void generateLetAS( const std::list<std::string> _tokens )
+Expression* generateAS( std::list<std::string>& _tokens )
 {
+  if ( _tokens.empty() )
+    return NULL;
+
+  Expression* currentNode = NULL;
+  std::string backToken = _tokens.back();
+  _tokens.pop_back();
+
+  if ( validInteger( backToken.c_str() ) )
+    currentNode = new Expression( backToken, Expression::Constant );
+
+  if ( validIdentifier( backToken.c_str() ) )
+    currentNode = new Expression( backToken, Expression::Identifier );
+
+  if ( validOperator( backToken.c_str() ) )
+  {
+    Expression* leftExpr = NULL;
+    Expression* rightExpr = NULL;
+
+    if ( !strcmp( backToken.c_str(), TOKEN_SUB ) ||
+         !strcmp( backToken.c_str(), TOKEN_DIV ) ||
+	 !strcmp( backToken.c_str(), TOKEN_EQL ) )
+    {
+      rightExpr = generateAS( _tokens );
+      leftExpr = generateAS( _tokens );
+    }
+    else
+    {
+      leftExpr = generateAS( _tokens );
+      rightExpr = generateAS( _tokens );
+    }
+
+    currentNode = new Expression( backToken, Expression::Operator, leftExpr, rightExpr );
+  }
+
+  return currentNode;
+}
+
+void printAS( const Expression* _expr )
+{
+  if ( _expr -> getType == Expression::Operator )
+  {
+    if ( _expr -> getLeftExpression() -> getType != Expression::Operator &&
+         _expr -> getRightExpression() -> getType != Expression::Operator )
+  }
 }
