@@ -77,11 +77,11 @@ std::string translate( std::string _currentLine )
     return "";
   
   /* if NOP instruction, translate into binary */
-  if ( _currentLine == INSN_NOP )
+  if ( !_currentLine.compare( INSN_NOP ) )
     return FLAG_NOP;
   
   /* if HLT instruction, translate into binary */
-  if ( _currentLine == INSN_HLT )
+  if ( !_currentLine.compare( INSN_HLT ) )
     return FLAG_HLT;
   
   /* will contain complete translated line */
@@ -134,9 +134,9 @@ std::string translate( std::string _currentLine )
   else
   {
     /* extract register A from line */
-    std::string regA = _currentLine.substr( 0, _currentLine.find_first_of( "," ) );
+    std::string regA = _currentLine.substr( 1, _currentLine.find_first_of( "," ) );
     /* extract register B from line */
-    std::string regB = _currentLine.substr( _currentLine.find_first_of( "," ) + 2 );
+    std::string regB = _currentLine.substr( _currentLine.find_first_of( "," ) + 3 );
     /* convert register A to binary representation */
     std::bitset<REGISTER_WIDTH> regBitA( std::atoi( regA.c_str() ) );
     /* convert register B to binary representation */
