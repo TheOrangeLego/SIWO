@@ -36,6 +36,12 @@
 ==  DESIGN DECISIONS  =========================================================
 ===============================================================================
 
+  > assembly 'set' function is only instruction that accepts immediate value,
+
+    operation instructions only use registers to maximize amount of available
+    
+    registers
+
   > branching is broken into two instructions, first the comparison and
   
     second the branching destination on the valid comparison. This allows
@@ -46,6 +52,10 @@
 
 ==  CHANGE LOG  ===============================================================
 ===============================================================================
+  
+  > included very basic lexer, parser, and Abstract Syntax Tree generator,
+    
+    all runnable from single runner
 
   > changed name of file and directory from 'parser' to correct name 
   
