@@ -4,9 +4,15 @@
 
 int findEnv( std::list<std::string> _env, std::string _var )
 {
+  int index = 0;
+
   for ( std::list<std::string>::iterator it = _env.begin(); it != _env.end(); it++ )
+  {
     if ( !strcmp( ( *it ).c_str(), _var.c_str() ) )
-      return 0;
+      return index;
+    else
+      index++;
+  }
 
   return -1;
 }
@@ -24,30 +30,45 @@ std::string insnIdentifier( int _register, int _registerIndex )
   return insn;
 }
 
-std::string compile( Expression* _expr, std::list<std::string> _env, int _registerIndex,
+std::string compile( ASTNode* _node, std::list<std::string> _env, int _registerIndex,
                      std::list<int> _errorList )
 {
-  std::string instruction = "................";
+  std::string instruction;
+ 
+  if ( _node -> getType() == ASTNode::Constant )
+    instruction = insnConstant( _node -> getToken(), _registerIndex );
 
-  if ( _expr -> getType() == Expression::Constant )
-    instruction = insnConstant( _expr -> getToken(), _registerIndex );
-
-  if ( _expr -> getType() == Expression::Identifier )
+  if ( _node-> getType() == ASTNode::Identifier )
   {
-    int identifier = findEnv( _env, _expr -> getToken() );
+    int identifier = findEnv( _env, _node -> getToken() );
 
     if ( identifier == -1 )
-      return "........////";
+      return "................";
 
     instruction = insnIdentifier( identifier, _registerIndex );
   }
 
-  if ( _expr -> getType() == Expression::Operator )
+  if ( _node -> getType() == ASTNode::Operator )
   {
-    std::string leftInsn = compile( _expr -> getLeftExpression(), _env,
-                                    _registerIndex, _errorList );
-    std::string rightInsn = compile( _expr -> getRightExpression(), _env,
-                                    _registerIndex + 1, _errorList );
+    std::string leftInsn = compile( _node -> getLeftNode(), _env, _registerIndex,
+                                    _errorList );
+    std::string rightInsn = compile( _node -> getRightNode(), _env, _registerIndex + 1,
+                                     _errorList );
+  }
+
+  if ( _node -> getType() == ASTNode::Assign )
+  {
+    std::string variable = _node -> getLeftNode() -> getToken();
+
+    if ( findEnv( _env, variable ) != -1 )
+      return "................";
+
+    instruction = compile( _node -> getMiddleNode(), _env, _registerIndex, _errorList );
+
+    _env.push_front( variable );
+
+    instruction += compile( _node -> getRightNode(), _env, _registerIndex + 1,
+                            _errorList );
   }
 
   return instruction;

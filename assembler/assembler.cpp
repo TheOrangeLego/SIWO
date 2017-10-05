@@ -95,7 +95,7 @@ std::string translate( std::string _currentLine )
   if ( header == INSN_SET )
   {
     /* extract register from line */
-    std::string reg = _currentLine.substr( 0, _currentLine.find_first_of( "," ) );
+    std::string reg = _currentLine.substr( 1, _currentLine.find_first_of( "," ) );
     /* extract immediate value from line */
     std::string val = _currentLine.substr( _currentLine.find_first_of( "," ) + 2 );
     /* convert register into binary value */

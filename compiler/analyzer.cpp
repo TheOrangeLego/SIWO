@@ -3,6 +3,8 @@
 #include "lexer.h"
 #include "analyzer.h"
 
+#include <iostream>
+
 ASTNode::ASTNode( std::string _token, ASTNodeType _type )
 {
   token = _token;
@@ -238,6 +240,7 @@ ASTNode* generateStatement( std::list<std::string>& _tokens )
 
       varExpression.push_back( variable );
 
+      _tokens.pop_front();
       frontToken = _tokens.front();
       _tokens.pop_front();
 
@@ -253,9 +256,15 @@ ASTNode* generateStatement( std::list<std::string>& _tokens )
       ASTNode* letVar   = generateExpression( varExpression );
       ASTNode* letBound = generateExpression( boundExpression );
       ASTNode* letBody  = generateStatement( _tokens );
-      
+     
       currentNode = new ASTNode( KEYWORD_LET, ASTNode::Assign, letVar, letBound,
                                  letBody );
+    }
+    else
+    {
+      _tokens.push_front( frontToken );
+
+      return generateExpression( _tokens );
     }
   }
 

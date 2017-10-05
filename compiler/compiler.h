@@ -11,7 +11,7 @@ std::string insnConstant( std::string _value, int _registerIndex );
 
 std::string insnIdentifier( int _register, int _registerIndex );
 
-std::string compile( Expression* _expr, std::list<std::string> _env, int _registerIndex,
+std::string compile( ASTNode* _node, std::list<std::string> _env, int _registerIndex,
                      std::list<int> _errorList );
 
 #endif

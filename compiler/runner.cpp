@@ -20,20 +20,19 @@ int main ( int argc, char* argv[] )
   std::ofstream output( "output.txt" );
 
   std::list<std::string> tokens;
-  Expression* root = NULL;
+  ASTNode* root = NULL;
   std::string insn = "";
 
   if ( !input.is_open() || !output.is_open() )
     return 1;
 
   appendStream( input );
-  tokens = getNextTokens();
+  tokens = getTokens();
 
-  if ( !validTokens( tokens ) )
-    return 2;
+  root = generateStatement( tokens );
 
-  tokens = orderTokens( tokens );
-  root = generateAS( tokens );
+  if ( root == NULL )
+    std::cout << "BAD!!" << std::endl;
 
   insn = compile( root, std::list<std::string>(), 0, std::list<int>() );
 
