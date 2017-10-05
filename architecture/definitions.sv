@@ -48,6 +48,7 @@ package definitions;
   const logic [FUNC_WIDTH - 1:0] FUNC_ABS = 5'b01110;
   const logic [FUNC_WIDTH - 1:0] FUNC_LD  = 5'b01111;
   const logic [FUNC_WIDTH - 1:0] FUNC_SV  = 5'b10000;
+  const logic [FUNC_WIDTH - 1:0] FUNC_MOV = 5'b10001;
 
   /* reserved instructions */
   const logic [INSN_WIDTH - 1:0] INSN_NOP = 16'h1;

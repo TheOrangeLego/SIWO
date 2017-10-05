@@ -42,6 +42,7 @@ module arithmeticLogicUnit (
       FUNC_GRT : result = ( $signed( _valA ) > $signed( _valB ) )  ? 1 : 0;
       FUNC_ABS : result = ( _valA[DATA_WIDTH - 1] == 1 ) ? -_valA : _valA;
       FUNC_SV  : result = _valB;
+      FUNC_MOV : result = _valB;
       default  : result = 0;
     endcase
     

@@ -109,6 +109,11 @@ module controlUnit (
 	        memoryWrite = 1;
 		muxMA = 1;
 	      end
+	    FUNC_MOV :
+	      begin
+	        regWrite = 1;
+		muxMA = 1;
+	      end
 	    /* for other function codes, write to register file */
 	    /* and choose output of ALU */
 	    default  :
