@@ -38,6 +38,7 @@ const char* INSN_GRT      = "grt";
 const char* INSN_ABS      = "abs";
 const char* INSN_LOAD     = "ld";
 const char* INSN_SAVE     = "sv";
+const char* INSN_MOVE     = "mov";
 const char* INSN_NOP      = "nop";
 const char* INSN_HLT      = "hlt";
 
@@ -64,6 +65,7 @@ const char* FLAG_GRT       = "01101\n";
 const char* FLAG_ABS       = "01110\n";
 const char* FLAG_LOAD      = "01111\n";
 const char* FLAG_SAVE      = "10000\n";
+const char* FLAG_MOVE      = "10001\n";
 const char* FLAG_NOP       = "0000000000000001\n";
 const char* FLAG_HLT       = "0000000000000000\n";
 

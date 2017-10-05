@@ -179,6 +179,8 @@ std::string translate( std::string _currentLine )
       translatedLine += FLAG_LOAD;
     else if ( header == INSN_SAVE )
       translatedLine += FLAG_SAVE;
+    else if ( header == INSN_MOVE )
+      translatedLine += FLAG_MOVE;
     else
       return "";
   }
