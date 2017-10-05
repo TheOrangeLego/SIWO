@@ -1,34 +1,25 @@
-#include <iostream>
 #include <string.h>
 #include <stack>
 #include "lexer.h"
-#include "parser.h"
 #include "analyzer.h"
 
-/* Constructor - Expression */
-Expression::Expression( std::string _token, Expression::ExpressionType _type )
+ASTNode::ASTNode( std::string _token, ASTNodeType _type )
 {
-  /* set token string and type according to parameters */
   token = _token;
   type = _type;
-  /* expression has not left and right child, i.e. constant or identifier */
-  left = middle = right = NULL;
 }
 
-/* Constructor - Expression */
-Expression::Expression( std::string _token, Expression::ExpressionType _type, 
-                        Expression* _left, Expression* _right )
+ASTNode::ASTNode( std::string _token, ASTNode::ASTNodeType _type, ASTNode* _left,
+                  ASTNode* _right )
 {
-  /* set token string, type, left, and right child expression */
   token = _token;
   type = _type;
-  left = _left;
-  middle = NULL;
-  right = _right;
+  left = left;
+  right = right;
 }
 
-Expression::Expression( std::string _token, Expression::ExpressionType _type,
-                        Expression* _left, Expression* _middle, Expression* _right )
+ASTNode::ASTNode( std::string _token, ASTNode::ASTNodeType _type, ASTNode* _left,
+                  ASTNode* _middle, ASTNode* _right )
 {
   token = _token;
   type = _type;
@@ -37,74 +28,61 @@ Expression::Expression( std::string _token, Expression::ExpressionType _type,
   right = _right;
 }
 
-/* Destructor - Expression */
-Expression::~Expression()
+ASTNode::~ASTNode()
 {
-  /* if left child exists, delete it */
   if ( left != NULL )
     delete left;
-  
-  /* if right child exists, delete it */
+
+  if ( middle != NULL )
+    delete middle;
+
   if ( right != NULL )
     delete right;
 }
 
-/* Function - getToken */
-std::string Expression::getToken() const
+std::string ASTNode::getToken() const
 {
-  /* return token string representation */
   return token;
 }
 
-/* Function - getType */
-Expression::ExpressionType Expression::getType() const
+ASTNode::ASTNodeType ASTNode::getType() const
 {
-  /* return type of token */
   return type;
 }
 
-/* Function - getLeftExpression */
-Expression* Expression::getLeftExpression() const
+ASTNode* ASTNode::getLeftNode() const
 {
-  /* return pointer to the left child */
   return left;
 }
 
-/* Function - getRightExpression */
-Expression* Expression::getRightExpression() const
+ASTNode* ASTNode::getMiddleNode() const
 {
-  /* return pointer to the right child */
+  return middle;
+}
+
+ASTNode* ASTNode::getRightNode() const
+{
   return right;
 }
 
-/* Function - precedence */
-int precedence( const std::string _token )
+int precedence( std::string _token ) 
 {
-  /* precedence 0 - '(' : ')' */
   if ( !strcmp( _token.c_str(), TOKEN_LPA ) || !strcmp( _token.c_str(), TOKEN_RPA ) )
     return 0;
-  /* precedence 1 - '*' : '/' */
-  else if ( !strcmp( _token.c_str(), TOKEN_MUL ) || !strcmp( _token.c_str(), TOKEN_DIV ) )
+  
+  if ( !strcmp( _token.c_str(), TOKEN_MUL ) || !strcmp( _token.c_str(), TOKEN_DIV ) )
     return 1;
-  /* precedence 2 - '+' : '-' */
-  else if ( !strcmp( _token.c_str(), TOKEN_ADD ) || !strcmp( _token.c_str(), TOKEN_SUB ) )
+  
+  if ( !strcmp( _token.c_str(), TOKEN_ADD ) || !strcmp( _token.c_str(), TOKEN_SUB ) )
     return 2;
-  else if ( !strcmp( _token.c_str(), TOKEN_EQL ) )
-    return 3;
-  /* not recognized tokens return -1 */
-  else
-    return -1;
 }
 
-/* Function - lowerPrecedence */
-bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB )
+bool greaterPrecedence( std::string _tokenA, std::string _tokenB ) 
 {
-  /* if precendence of first token is less or equal to second token return true */
-  if ( precedence( _tokenA ) <= precedence( _tokenB ) )
+  if ( precedence( _tokenA ) > precedence( _tokenB ) )
     return true;
-  /* otherwise return false */
-  else
-    return false;
+
+  return false;
 }
 
 /* Function - orderTokens */
@@ -168,7 +146,7 @@ std::list<std::string> orderTokens( std::list<std::string> _tokens )
 	/* continue to parse through operators while the operator stack is not empty, */
 	/* the precendence of stack operator is lower than current token operator,    */
 	/* and is not operator of precedence 0 */
-	while ( !operators.empty() && lowerPrecedence( topOperator, currentToken ) &&
+	while ( !operators.empty() && !greaterPrecedence( topOperator, currentToken ) &&
 	        precedence( topOperator ) )
 	{
 	  /* remove top operator from stack */
@@ -200,29 +178,30 @@ std::list<std::string> orderTokens( std::list<std::string> _tokens )
   return orderedTokens;
 }
 
-Expression* generateExpression( std::list<std::string>& _tokens )
+ASTNode* generateExpression( std::list<std::string>& _tokens )
 {
   if ( _tokens.empty() )
     return NULL;
 
-  Expression* currentNode = NULL;
   std::string backToken = _tokens.back();
   _tokens.pop_back();
 
+  ASTNode* currentNode = NULL;
+
   if ( validInteger( backToken.c_str() ) )
-    currentNode = new Expression( backToken, Expression::Constant );
+    currentNode = new ASTNode( backToken, ASTNode::Constant );
 
   if ( validIdentifier( backToken.c_str() ) )
-    currentNode = new Expression( backToken, Expression::Identifier );
+    currentNode = new ASTNode( backToken, ASTNode::Identifier );
 
   if ( validOperator( backToken.c_str() ) )
   {
-    Expression* leftExpr = NULL;
-    Expression* rightExpr = NULL;
+    ASTNode* rightExpr = generateExpression( _tokens );
+    ASTNode* leftExpr  = generateExpression( _tokens );
 
+    /*
     if ( !strcmp( backToken.c_str(), TOKEN_SUB ) ||
-         !strcmp( backToken.c_str(), TOKEN_DIV ) ||
-	 !strcmp( backToken.c_str(), TOKEN_EQL ) )
+         !strcmp( backToken.c_str(), TOKEN_DIV ) )
     {
       rightExpr = generateAS( _tokens );
       leftExpr = generateAS( _tokens );
@@ -232,16 +211,17 @@ Expression* generateExpression( std::list<std::string>& _tokens )
       leftExpr = generateAS( _tokens );
       rightExpr = generateAS( _tokens );
     }
+    */
 
-    currentNode = new Expression( backToken, Expression::Operator, leftExpr, rightExpr );
+    currentNode = new ASTNode( backToken, ASTNode::Operator, leftExpr, rightExpr );
   }
 
   return currentNode;
 }
 
-Expression* generateStatement( std::list<std::string>& _tokens )
+ASTNode* generateStatement( std::list<std::string>& _tokens )
 {
-  Expression* root = NULL;
+  ASTNode* currentNode = NULL;
 
   while ( !_tokens.empty() )
   {
@@ -250,32 +230,34 @@ Expression* generateStatement( std::list<std::string>& _tokens )
 
     if ( !strcmp( frontToken.c_str(), KEYWORD_LET ) )
     {
-      std::list<std::string> boundTokens;
+      std::string variable = _tokens.front();
+      _tokens.pop_front();
+
+      std::list<std::string> varExpression;
+      std::list<std::string> boundExpression;
+
+      varExpression.push_back( variable );
 
       frontToken = _tokens.front();
       _tokens.pop_front();
 
       while ( strcmp( frontToken.c_str(), KEYWORD_COLON ) )
       {
-        boundTokens.push_back( frontToken );
+        boundExpression.push_back( frontToken );
 	frontToken = _tokens.front();
 	_tokens.pop_front();
       }
 
-      if ( boundTokens.empty() )
-      { /* error msg */ }
+      boundExpression = orderTokens( boundExpression );
 
-      boundTokens = orderTokens( boundTokens );
-
-      Expression* boundExpression = generateExpression( boundTokens );
-      Expression* bodyExpression  = generateStatement( _tokens );
-
-      root = new Expression( KEYWORD_LET, Expression::Assign, boundExpression,
-                             bodyExpression );
+      ASTNode* letVar   = generateExpression( varExpression );
+      ASTNode* letBound = generateExpression( boundExpression );
+      ASTNode* letBody  = generateStatement( _tokens );
+      
+      currentNode = new ASTNode( KEYWORD_LET, ASTNode::Assign, letVar, letBound,
+                                 letBody );
     }
-    else
-    {}
   }
 
-  return root;
+  return currentNode;
 }
