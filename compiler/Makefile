@@ -3,22 +3,22 @@ CFLAGS   = -std=c++11
 
 all: compile
 
-compile: lexer.o parser.o analyzer.o compiler.o runner.o
+compile: lexer parser analyzer compiler runner
 	$(COMPILER) $(CFLAGS) lexer.o parser.o analyzer.o compiler.o runner.o -o compile
 
-lexer.o: lexer.h lexer.cpp
+lexer: lexer.h lexer.cpp
 	$(COMPILER) $(CFLAGS) -c lexer.h lexer.cpp
 
-parser.o: parser.h parser.cpp
+parser: lexer parser.h parser.cpp
 	$(COMPILER) $(CFLAGS) -c parser.h parser.cpp
 
-analyzer.o: analyzer.h analyzer.cpp
+analyzer: parser analyzer.h analyzer.cpp
 	$(COMPILER) $(CFLAGS) -c analyzer.h analyzer.cpp
 
-compiler.o: compiler.h compiler.cpp
+compiler: analyzer compiler.h compiler.cpp
 	$(COMPILER) $(CFLAGS) -c compiler.h compiler.cpp
 
-runner.o: runner.cpp
+runner: compiler runner.cpp
 	$(COMPILER) $(CFLAGS) -c runner.cpp
 
 clean:
