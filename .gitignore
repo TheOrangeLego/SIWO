@@ -22,3 +22,8 @@ vsim.dbg
 # ignore Ocaml compilation files
 *.cmi
 *.cmo
+
+# ignore test files from compiler, assembler, and architechture
+*.txt
+*.a
+*.b

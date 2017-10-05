@@ -52,6 +52,8 @@
 
 ==  CHANGE LOG  ===============================================================
 ===============================================================================
+
+  > compiler compiles code correctly for 'let' statements and expressions
   
   > included very basic lexer, parser, and Abstract Syntax Tree generator,
     
