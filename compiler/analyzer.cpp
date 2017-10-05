@@ -9,25 +9,23 @@ ASTNode::ASTNode( std::string _token, ASTNodeType _type )
 {
   token = _token;
   type = _type;
+  left = middle = right = NULL;
 }
 
 ASTNode::ASTNode( std::string _token, ASTNode::ASTNodeType _type, ASTNode* _left,
                   ASTNode* _right )
+  : left( _left ), middle( NULL ), right( _right )
 {
   token = _token;
   type = _type;
-  left = left;
-  right = right;
 }
 
 ASTNode::ASTNode( std::string _token, ASTNode::ASTNodeType _type, ASTNode* _left,
                   ASTNode* _middle, ASTNode* _right )
+  : left( _left ), middle( _middle ), right( _right )
 {
   token = _token;
   type = _type;
-  left = _left;
-  middle = _middle;
-  right = _right;
 }
 
 ASTNode::~ASTNode()
@@ -40,6 +38,22 @@ ASTNode::~ASTNode()
 
   if ( right != NULL )
     delete right;
+}
+
+ASTNode& ASTNode::operator=( const ASTNode& _node )
+{
+  if ( left != NULL )
+    delete left;
+  if ( middle != NULL )
+    delete middle;
+  if ( right != NULL )
+    delete right;
+
+  left = _node.left;
+  middle = _node.middle;
+  right = _node.right;
+
+  return *this;
 }
 
 std::string ASTNode::getToken() const
@@ -198,22 +212,8 @@ ASTNode* generateExpression( std::list<std::string>& _tokens )
 
   if ( validOperator( backToken.c_str() ) )
   {
-    ASTNode* rightExpr = generateExpression( _tokens );
+    ASTNode* rightExpr = generateExpression( _tokens ); 
     ASTNode* leftExpr  = generateExpression( _tokens );
-
-    /*
-    if ( !strcmp( backToken.c_str(), TOKEN_SUB ) ||
-         !strcmp( backToken.c_str(), TOKEN_DIV ) )
-    {
-      rightExpr = generateAS( _tokens );
-      leftExpr = generateAS( _tokens );
-    }
-    else
-    {
-      leftExpr = generateAS( _tokens );
-      rightExpr = generateAS( _tokens );
-    }
-    */
 
     currentNode = new ASTNode( backToken, ASTNode::Operator, leftExpr, rightExpr );
   }
@@ -256,15 +256,19 @@ ASTNode* generateStatement( std::list<std::string>& _tokens )
       ASTNode* letVar   = generateExpression( varExpression );
       ASTNode* letBound = generateExpression( boundExpression );
       ASTNode* letBody  = generateStatement( _tokens );
-     
+
       currentNode = new ASTNode( KEYWORD_LET, ASTNode::Assign, letVar, letBound,
                                  letBody );
     }
     else
     {
       _tokens.push_front( frontToken );
+      _tokens = orderTokens( _tokens );
 
-      return generateExpression( _tokens );
+      ASTNode* expression = generateExpression( _tokens );
+      
+      return expression;
+
     }
   }
 

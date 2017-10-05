@@ -31,10 +31,7 @@ int main ( int argc, char* argv[] )
 
   root = generateStatement( tokens );
 
-  if ( root == NULL )
-    std::cout << "BAD!!" << std::endl;
-
-  insn = compile( root, std::list<std::string>(), 0, std::list<int>() );
+  insn = compile( root, std::list<std::pair<std::string, int> >(), 0, std::list<int>() );
 
   output << insn << "hlt\n";
 

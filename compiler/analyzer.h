@@ -18,6 +18,8 @@ class ASTNode
 
     ~ASTNode();
 
+    ASTNode& operator=( const ASTNode& _node );
+
     std::string getToken() const;
 
     ASTNodeType getType() const;
