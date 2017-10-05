@@ -21,16 +21,16 @@ static std::stringstream buffer;
 bool streamEmpty();
 
 /*
- * Function     - getNextTokens
+ * Function     - getTokens
  *
  * Parameters   - none
  *
- * Return Value - list of string token from the buffer. Return list will be empty if the
+ * Return Value - list of string tokens from the buffer. Return list will be empty if the
  *                buffer is empty too
  *
- * Description  - returns list of string tokens from current line in the buffer
+ * Description  - returns list of string tokens from the buffer
  */
-std::list<std::string> getNextTokens();
+std::list<std::string> getTokens();
 
 /*
  * Function     - appendStream

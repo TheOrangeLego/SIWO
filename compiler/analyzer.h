@@ -9,7 +9,7 @@ class Expression
 {
   public:
     /* types of expressions available */
-    enum ExpressionType { Constant, Identifier, Operator };
+    enum ExpressionType { Constant, Identifier, Operator, Assign };
 
     /*
      * Constructor  - Expression
@@ -41,6 +41,9 @@ class Expression
      */
     Expression( std::string _token, ExpressionType _type, Expression* _left,
                 Expression* _right );
+    
+    Expression( std::string _token, ExpressionType _type, Expression* _left,
+                Expression* _middle, Expression* _right );
 
     /*
      * Destructor   - Expression
@@ -52,32 +55,6 @@ class Expression
      * Description  - destructor for Expression type objects
      */
     ~Expression();
-
-    /*
-     * Function     - setLeftExpression
-     *
-     * Parameters   -
-     *  - Expression* - expression that will be assigned as the left child expression
-     *
-     * Return Value - none
-     *
-     * Description  - sets the left child of the current expression to the provided
-     *                expression
-     */
-    void setLeftExpression( Expression* _expr );
-
-    /*
-     * Function     - setRightExpression
-     *
-     * Parameters   -
-     *  - Expression* - expression that will be assigned as the right child expression
-     *
-     * Return Value - none
-     *
-     * Description  - sets the right child of the current expression to the provided
-     *                expression
-     */
-    void setRightExpression( Expression* _expr );
 
     /*
      * Function     - getToken
@@ -130,6 +107,7 @@ class Expression
     ExpressionType type;
     /* left expression for binary operators */
     Expression* left;
+    Expression* middle;
     /* right expression for binary operators */
     Expression* right;
 };
@@ -175,8 +153,8 @@ bool lowerPrecedence( const std::string _tokenA, const std::string _tokenB );
  */
 std::list<std::string> orderTokens( std::list<std::string> _tokens );
 
-Expression* generateAS( std::list<std::string>& _tokens );
+Expression* generateExpression( std::list<std::string>& _tokens );
 
-void printAS( const Expression* _expr );
+Expression* generateStatement( std::list<std::string>& _tokens );
 
 #endif

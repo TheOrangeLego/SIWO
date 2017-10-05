@@ -12,7 +12,7 @@ Expression::Expression( std::string _token, Expression::ExpressionType _type )
   token = _token;
   type = _type;
   /* expression has not left and right child, i.e. constant or identifier */
-  left = right = NULL;
+  left = middle = right = NULL;
 }
 
 /* Constructor - Expression */
@@ -23,6 +23,17 @@ Expression::Expression( std::string _token, Expression::ExpressionType _type,
   token = _token;
   type = _type;
   left = _left;
+  middle = NULL;
+  right = _right;
+}
+
+Expression::Expression( std::string _token, Expression::ExpressionType _type,
+                        Expression* _left, Expression* _middle, Expression* _right )
+{
+  token = _token;
+  type = _type;
+  left = _left;
+  middle = _middle;
   right = _right;
 }
 
@@ -36,20 +47,6 @@ Expression::~Expression()
   /* if right child exists, delete it */
   if ( right != NULL )
     delete right;
-}
-
-/* Function - setLeftExpression */
-void Expression::setLeftExpression( Expression* _expr )
-{
-  /* set the left child to the provided expression */
-  left = _expr;
-}
-
-/* Function - setRightExpression */
-void Expression::setRightExpression( Expression* _expr )
-{
-  /* set the right child to the provided expression */
-  right = _expr;
 }
 
 /* Function - getToken */
@@ -203,7 +200,7 @@ std::list<std::string> orderTokens( std::list<std::string> _tokens )
   return orderedTokens;
 }
 
-Expression* generateAS( std::list<std::string>& _tokens )
+Expression* generateExpression( std::list<std::string>& _tokens )
 {
   if ( _tokens.empty() )
     return NULL;
@@ -240,4 +237,45 @@ Expression* generateAS( std::list<std::string>& _tokens )
   }
 
   return currentNode;
+}
+
+Expression* generateStatement( std::list<std::string>& _tokens )
+{
+  Expression* root = NULL;
+
+  while ( !_tokens.empty() )
+  {
+    std::string frontToken = _tokens.front();
+    _tokens.pop_front();
+
+    if ( !strcmp( frontToken.c_str(), KEYWORD_LET ) )
+    {
+      std::list<std::string> boundTokens;
+
+      frontToken = _tokens.front();
+      _tokens.pop_front();
+
+      while ( strcmp( frontToken.c_str(), KEYWORD_COLON ) )
+      {
+        boundTokens.push_back( frontToken );
+	frontToken = _tokens.front();
+	_tokens.pop_front();
+      }
+
+      if ( boundTokens.empty() )
+      { /* error msg */ }
+
+      boundTokens = orderTokens( boundTokens );
+
+      Expression* boundExpression = generateExpression( boundTokens );
+      Expression* bodyExpression  = generateStatement( _tokens );
+
+      root = new Expression( KEYWORD_LET, Expression::Assign, boundExpression,
+                             bodyExpression );
+    }
+    else
+    {}
+  }
+
+  return root;
 }

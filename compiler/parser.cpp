@@ -15,50 +15,46 @@ void appendStream( const std::ifstream& _inputFile )
   buffer << _inputFile.rdbuf();
 }
 
-/* Function - getNextTokens */
-std::list<std::string> getNextTokens()
+/* Function - getTokens */
+std::list<std::string> getTokens()
 {
   /* contents of the current line of buffer */
   std::string currentLine;
   /* list of string representation of each token */
   std::list<std::string> tokenList;
-
-  /* if the stream is empty, return an empty list */
-  if ( streamEmpty() )
-    return std::list<std::string>();
-
-  /* get the top line of the buffer */
-  std::getline( buffer, currentLine );
   
-  /* read all contents of the current line */
-  while ( currentLine.length() )
+  /* parser through all tokens */
+  while ( !streamEmpty() )
   {
-    /* skip any whitespace at the front of the line */
-    if ( currentLine[0] == CHAR_SPACE || currentLine[0] == CHAR_TAB )
-      currentLine = currentLine.substr( 1 );
-    else
+    /* get the top line of the buffer */
+    std::getline( buffer, currentLine );
+  
+    /* read all contents of the current line */
+    while ( currentLine.length() )
     {
-      /* find the first space */
-      std::size_t spaceChar = currentLine.find_first_of( CHAR_SPACE );
-      /* extract the first word of the current line */
-      std::string currentString = currentLine.substr( 0, spaceChar );
-    
-      /* add first word into token list */
-      tokenList.push_back( currentString );
-
-      /* if there are no more words, line will be empty */
-      if ( spaceChar == std::string::npos )
-        currentLine = "";
-      /* else remove the first word and space from the current line for next parsing */
+      /* skip any whitespace at the front of the line */
+      if ( currentLine[0] == CHAR_SPACE || currentLine[0] == CHAR_TAB )
+        currentLine = currentLine.substr( 1 );
       else
-        currentLine = currentLine.substr( spaceChar + 1 );
+      {
+        /* find the first space */
+        std::size_t spaceChar = currentLine.find_first_of( CHAR_SPACE );
+        /* extract the first word of the current line */
+        std::string currentString = currentLine.substr( 0, spaceChar );
+      
+        /* add first word into token list */
+        tokenList.push_back( currentString );
+
+        /* if there are no more words, line will be empty */
+        if ( spaceChar == std::string::npos )
+        currentLine = "";
+        /* else remove the first word and space from the current line for next parsing */
+        else
+          currentLine = currentLine.substr( spaceChar + 1 );
+      }
     }
   }
-  
-  /* if the line is empty extract from next line in buffer */
-  if ( tokenList.empty() )
-    return getNextTokens();
-  
+
   /* return token list */
   return tokenList;
 }

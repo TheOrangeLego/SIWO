@@ -12,7 +12,8 @@ const char CHAR_US      = '_';
 const char CHAR_NUL     = '\0';
 
 /* keywords */
-const char* const KEYWORD_LET = "let";
+const char* const KEYWORD_LET   = "let";
+const char* const KEYWORD_COLON = ":";
 
 /* operators */
 const char* const TOKEN_EQL = "=";
